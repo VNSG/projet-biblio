@@ -30,23 +30,25 @@ $book = $books->fetch();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <h2>MODIFIER UN LIVRE</h2> 
     <form  action="modify_book.php?id=<?php echo $_GET['id']; ?>" method="post">
         <div>
         <label for="name">Titre du livre :</label>
-        <input type="text"  id="name"  name="book_title" value="<?php
+        <input type="text"  id="name" class="form-control" name="book_title" value="<?php
         echo $book['title']; ?>">
         </div>
         <div>
             <label  for="release_date">Date de parution :</label>
-            <input  type="date"  id="date"  name="release_date" value="<?php
+            <input  type="date"  id="date" class="form-control" name="release_date" value="<?php
             echo $book['release_date']; ?>">
         </div>
         <div>
             <label for="author_name_select">Nom de l'auteur:</label>
-            <select name="author_id" id="authors-select">
+            <select name="author_id" class="form-control" id="authors-select">
             <?php
                 foreach ($authors as $author) {
                     echo '<option value="' . $author['id'] . '"';
@@ -63,9 +65,11 @@ $book = $books->fetch();
             </select>
         </div>
         <div  class="button">
-        <button  type="submit">Modifier le livre</button>
+        <button class="btn btn-primary" type="submit">Modifier le livre</button>
         </div>
     </form>
+    <br>
+  <a href="new_essai.php" class="btn btn-primary">Voir la liste des livres</a>
 </body>
 </html>
 
