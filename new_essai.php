@@ -1,4 +1,5 @@
 <?php
+session_start();
 $mysqlConnection = new PDO(
     'mysql:host=localhost;dbname=Library;charset=utf8',
     'root',
@@ -19,10 +20,18 @@ $books = $mysqlConnection->query('SELECT b.*, a.name  FROM book b LEFT JOIN auth
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <h1>LISTE DES LIVRES</h1>
     <main class="container">
         <div class="row">
             <section class="col-12">
+                <?php
+                    if(!empty($_SESSION['erreur'])){
+                        echo '<div class="alert alert-danger" role="alert">
+                                '. $_SESSION['erreur'].'
+                            </div>';
+                        $_SESSION['erreur'] = "";
+                    }
+                ?>
+                <h1>LISTE DES LIVRES</h1>
                 <table class="table">
                     <thead>
                         <th>ID</th>
@@ -40,17 +49,18 @@ $books = $mysqlConnection->query('SELECT b.*, a.name  FROM book b LEFT JOIN auth
                                 <td><?= $book['title'] ?></td>
                                 <td><?= $book['release_date'] ?></td>
                                 <td><?= $book['name'] ?></td>
-                                <td><a style="margin-right:2%" href="details.php?id=<?= $book['id'] ?>"> Voir plus</a><a style="margin-left:2%" href="modify_book.php?id=<?= $book['id'] ?>"> Modifier</a><a style="margin-left:2%" href="delete_book.php?id=<?= $book['id'] ?>"> Supprimer</a></td>
+                                <td><a style="margin-right:2%" class="btn btn-success" href="details.php?id=<?= $book['id'] ?>"> Voir plus</a><a style="margin-left:2%" class="btn btn-warning" href="modify_book.php?id=<?= $book['id'] ?>"> Modifier</a><a style="margin-left:2%" class="btn btn-danger" href="delete_book.php?id=<?= $book['id'] ?>"> Supprimer</a></td>
                             </tr>
-                    <?php
-                    }
-                    ?>
+                        <?php
+                        }
+                        ?>
 
 
 
                     </tbody>
                 </table>
                 <a href="add.php" class="btn btn-primary">Ajouter un livre</a>
+        
             </section>  
         </div>
     </main>
